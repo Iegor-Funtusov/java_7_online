@@ -1,3 +1,5 @@
+import java.math.*;
+
 public class HelloWorld {
     public static void main(String[] args) {
         Message m = new Message();
@@ -38,5 +40,14 @@ public class HelloWorld {
 
         boolean b = true;
         m.print("b: " + b);
+
+        System.out.println();
+        System.out.println("fin ar:");
+        System.out.println(2.0 - 1.1);
+
+        BigDecimal left = new BigDecimal("2.0");
+        BigDecimal right = new BigDecimal("1.1");
+        BigDecimal res = left.subtract(right);
+        System.out.println("res = " + res);
     }
 }

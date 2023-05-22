@@ -1,7 +1,6 @@
 package ua.com.alevel;
 
 //import java.lang.String;
-import ua.com.alevel.test.Message;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -46,6 +45,6 @@ public class HelloWorld {
         boolean b = true;
         m.print("b: " + b);
 
-        while (true) { }
+//        while (true) { }
     }
 }

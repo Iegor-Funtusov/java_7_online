@@ -1,4 +1,4 @@
-package ua.com.alevel;
+package ua.com.alevel.test;
 
 public class Message {
     public void print(String msg) {
