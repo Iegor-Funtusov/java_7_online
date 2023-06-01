@@ -1,45 +1,35 @@
 package ua.com.alevel.service;
 
+import ua.com.alevel.dao.StudentDao;
 import ua.com.alevel.entity.Student;
 
-import java.util.UUID;
-
 public class StudentService {
-    
-    private Student[] students = new Student[10];
+
+    private StudentDao studentDao = new StudentDao();
 
     public void create(Student student) {
-        for (int i = 0; i < students.length; i++) {
-            if (students[i] == null) {
-                String id = UUID.randomUUID().toString();
-                student.setId(id);
-                students[i] = student;
-                break;
-            }
+        if (student.getAge() <= 0 || student.getAge() > 100) {
+            System.out.println("you are stupid");
+        } else {
+            studentDao.create(student);
         }
     }
 
-    public void update() {
-        System.out.println("UserController.update");
+    public void update(Student student) {
+        studentDao.update(student);
     }
 
-    public void delete() {
-        System.out.println("UserController.delete");
+    public void delete(String id) {
+        studentDao.delete(id);
     }
 
-    public Student findOne(String id) {
-        for (int i = 0; i < students.length; i++) {
-            Student student = students[i];
-            if (student != null) {
-                if (student.getId().equals(id)) {
-                    return student;
-                }
-            }
-        }
-        return null;
+    public Student findById(String id) {
+        return studentDao.findOne(id);
     }
 
     public Student[] findAll() {
-        return students;
+        return studentDao.findAll();
     }
+
+//    private static final class BlaBla { }
 }

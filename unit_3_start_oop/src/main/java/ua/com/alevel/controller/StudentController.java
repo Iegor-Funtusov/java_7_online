@@ -2,6 +2,7 @@ package ua.com.alevel.controller;
 
 import ua.com.alevel.entity.Student;
 import ua.com.alevel.service.StudentService;
+import ua.com.alevel.util.AppUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,25 +53,30 @@ public class StudentController {
         System.out.println("Please enter age");
         String ageString = bufferedReader.readLine();
         int age = Integer.parseInt(ageString);
-        Student student = new Student();
-        student.setFirstName(firstName);
-        student.setLastName(lastName);
-        student.setAge(age);
+        // 1
+//        Student student = new Student();
+//        student.setFirstName(firstName);
+//        student.setLastName(lastName);
+//        student.setAge(age);
+
+        Student student = new Student(firstName, lastName, age);
         studentService.create(student);
     }
 
-    private void update(BufferedReader bufferedReader) {
-        System.out.println("UserController.update");
+    private void update(BufferedReader bufferedReader) throws IOException {
+        System.out.println(AppUtil.FIND_BY_ID_MESSAGE);
+        String id = bufferedReader.readLine();
     }
 
-    private void delete(BufferedReader bufferedReader) {
-        System.out.println("UserController.delete");
+    private void delete(BufferedReader bufferedReader) throws IOException {
+        System.out.println(AppUtil.FIND_BY_ID_MESSAGE);
+        String id = bufferedReader.readLine();
     }
 
     private void findOne(BufferedReader bufferedReader) throws IOException {
-        System.out.println("Please enter id");
+        System.out.println(AppUtil.FIND_BY_ID_MESSAGE);
         String id = bufferedReader.readLine();
-        Student student = studentService.findOne(id);
+        Student student = studentService.findById(id);
         if (student != null) {
             System.out.println("FirstName: " + student.getFirstName() + ", LastName: " + student.getLastName() + ", Age: " + student.getAge());
         } else {

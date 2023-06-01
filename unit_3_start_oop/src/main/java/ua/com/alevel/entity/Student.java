@@ -5,12 +5,35 @@ public class Student extends BaseEntity {
     private String firstName;
     private String lastName;
     private int age;
+    String email;
+
+    public Student() { }
+
+    // overloading
+    public Student(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    public void student() { }
+
+    private void test() {
+        String firstName = "";
+        System.out.println("firstName = " + firstName);
+        System.out.println("firstName = " + this.firstName);
+    }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    // overloading
+    public void setFirstName(final String firstName, int age) {
         this.firstName = firstName;
     }
 
@@ -23,11 +46,7 @@ public class Student extends BaseEntity {
     }
 
     public void setAge(int age) {
-        if (age <= 0 || age > 100) {
-            System.out.println("you are stupid");
-        } else {
-            this.age = age;
-        }
+        this.age = age;
     }
 
     public int getAge() {
