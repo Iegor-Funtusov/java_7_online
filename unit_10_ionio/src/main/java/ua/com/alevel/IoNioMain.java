@@ -13,5 +13,8 @@ public class IoNioMain {
 //        ioTest.createDirs(DIRS_PATH);
 //        ioTest.readDir(DIR_PATH);
         ioTest.removeDir(DIR_PATH);
+
+        String reverse = ReverseStringUtil.reverse("");
+        System.out.println("reverse = " + reverse);
     }
 }
