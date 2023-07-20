@@ -44,7 +44,9 @@ public class MainController {
         System.out.println("If you want delete employee, please enter 8");
         System.out.println("If you want find employee, please enter 9");
         System.out.println("If you want find all employees, please enter 10");
-        System.out.println("If you want close application, please enter 11");
+        System.out.println("If you want find all employees by departments, please enter 11");
+        System.out.println("If you want find all employees by departments, please enter 12");
+        System.out.println("If you want close application, please enter 13");
     }
 
     private void crud(BufferedReader bufferedReader, String select) throws IOException {
@@ -59,7 +61,9 @@ public class MainController {
             case "8" -> deleteEmployee(bufferedReader);
             case "9" -> findOneEmployee(bufferedReader);
             case "10" -> findAllEmployees(bufferedReader);
-            case "11" -> System.exit(0);
+            case "11" -> findAllEmployeesByDepartment(bufferedReader);
+            case "12" -> findAllEmployeesByExcludeDepartment(bufferedReader);
+            case "13" -> System.exit(0);
         }
         menu();
     }
@@ -156,6 +160,26 @@ public class MainController {
     private void findAllEmployees(BufferedReader bufferedReader) {
         System.out.println("MainController.findAllEmployees");
         List<Employee> employees = employeeService.findAll();
+        for (Employee employee : employees) {
+            System.out.println("employee = " + employee);
+        }
+    }
+
+    private void findAllEmployeesByDepartment(BufferedReader bufferedReader) throws IOException {
+        System.out.println("MainController.findAllEmployeesByDepartment");
+        System.out.println("Please enter a department id");
+        Long id = Long.parseLong(bufferedReader.readLine());
+        List<Employee> employees = employeeService.findAllEmployeesByDepartment(id);
+        for (Employee employee : employees) {
+            System.out.println("employee = " + employee);
+        }
+    }
+
+    private void findAllEmployeesByExcludeDepartment(BufferedReader bufferedReader) throws IOException {
+        System.out.println("MainController.findAllEmployeesByExcludeDepartment");
+        System.out.println("Please enter a department id");
+        Long id = Long.parseLong(bufferedReader.readLine());
+        List<Employee> employees = employeeService.findAllEmployeesByExcludeDepartment(id);
         for (Employee employee : employees) {
             System.out.println("employee = " + employee);
         }

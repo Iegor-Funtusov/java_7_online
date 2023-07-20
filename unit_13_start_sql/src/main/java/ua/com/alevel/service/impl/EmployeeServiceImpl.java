@@ -18,21 +18,40 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void update(Employee entity) {
+        checkExistById(entity.getId());
         employeeDao.update(entity);
     }
 
     @Override
     public void delete(Long id) {
+        checkExistById(id);
         employeeDao.delete(id);
     }
 
     @Override
     public Employee findById(Long id) {
+        checkExistById(id);
         return employeeDao.findById(id);
     }
 
     @Override
     public List<Employee> findAll() {
         return employeeDao.findAll();
+    }
+
+    private void checkExistById(Long id) {
+        if (!employeeDao.existsById(id)) {
+            throw new RuntimeException("Entity not found");
+        }
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesByDepartment(Long departmentId) {
+        return employeeDao.findAllEmployeesByDepartment(departmentId);
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesByExcludeDepartment(Long departmentId) {
+        return employeeDao.findAllEmployeesByExcludeDepartment(departmentId);
     }
 }

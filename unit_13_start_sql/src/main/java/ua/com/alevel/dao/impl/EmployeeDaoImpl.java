@@ -19,6 +19,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     private static final String EMPLOYEE_DELETE_QUERY = "delete from employees where id = ?";
     private static final String EMPLOYEE_FIND_BY_ID_QUERY = "select * from employees where id = ";
     private static final String EMPLOYEE_FIND_ALL_QUERY = "select * from employees";
+    private static final String EXISTS_EMPLOYEE_BY_ID_QUERY = "select count(*) as count from employees where id = ";
+    private static final String EMPLOYEE_FIND_BY_DEPARTMENT_QUERY = "select id, first_name, last_name, age from employees as emp left join dep_emp as de on emp.id = de.emp_id where de.dep_id = ";
+    private static final String EMPLOYEE_FIND_BY_EXCLUDE_DEPARTMENT_QUERY = "select * from employees where id not in (" +
+            "    select id from employees as emp left join dep_emp as de on emp.id = de.emp_id where de.dep_id = ?" +
+            "    )";
 
     @Override
     public void create(Employee entity) {
@@ -57,6 +62,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public boolean existsById(Long id) {
+        try(ResultSet rs = config.getStatement().executeQuery(EXISTS_EMPLOYEE_BY_ID_QUERY + id)) {
+            while (rs.next()) {
+                Long count = rs.getLong("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("e = " + e);
+        }
         return false;
     }
 
@@ -82,6 +95,35 @@ public class EmployeeDaoImpl implements EmployeeDao {
             return employees;
         } catch (SQLException e) {
             System.out.println("e = " + e);
+        }
+        return employees;
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesByDepartment(Long departmentId) {
+        List<Employee> employees = new ArrayList<>();
+        try(ResultSet rs = config.getStatement().executeQuery(EMPLOYEE_FIND_BY_DEPARTMENT_QUERY + departmentId)) {
+            while (rs.next()) {
+                employees.add(buildEmployeeByResultSet(rs));
+            }
+            return employees;
+        } catch (SQLException e) {
+            System.out.println("e = " + e);
+        }
+        return employees;
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesByExcludeDepartment(Long departmentId) {
+        List<Employee> employees = new ArrayList<>();
+        try(PreparedStatement ps = config.getConnection().prepareStatement(EMPLOYEE_FIND_BY_EXCLUDE_DEPARTMENT_QUERY)) {
+            ps.setLong(1, departmentId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                employees.add(buildEmployeeByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println("e = " + e.getMessage());
         }
         return employees;
     }
