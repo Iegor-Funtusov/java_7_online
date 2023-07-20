@@ -19,3 +19,13 @@ delete from employees where id = 1;
 select * from employees;
 select * from employees where id = 12;
 
+SET @row_index := -1;
+
+SELECT AVG(subq.salary) as median_value
+FROM (
+         SELECT @row_index:=@row_index + 1 AS row_index, salary
+         FROM employees
+         ORDER BY salary
+     ) AS subq
+WHERE subq.row_index
+          IN (FLOOR(@row_index / 2) , CEIL(@row_index / 2));
