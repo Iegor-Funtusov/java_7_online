@@ -29,3 +29,25 @@ FROM (
      ) AS subq
 WHERE subq.row_index
           IN (FLOOR(@row_index / 2) , CEIL(@row_index / 2));
+
+
+
+start transaction;
+insert into transactions values (default, 1, 2, 10);
+update emp_balances set sum = 90 where emp_id = 1;
+update emp_balances set sum = 110 where emp_id = 2;
+commit;
+rollback work ;
+
+set transaction isolation level READ UNCOMMITTED;
+set transaction isolation level READ COMMITTED;
+set transaction isolation level repeatable read ;
+set transaction isolation level serializable ;
+update emp_balances set sum = sum + 10 where emp_id = 1;
+update emp_balances set sum = sum + 20 where emp_id = 1;
+
+# lock tables emp_balances READ ;
+
+
+#datatable
+select count(*) from employees where first_name like '%1' and age > 30 order by id desc limit 10,10;

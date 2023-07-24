@@ -20,3 +20,18 @@ create table dep_emp
     foreign key (dep_id) references departments(id),
     foreign key (emp_id) references employees(id)
 );
+
+create table transactions
+(
+    id bigint auto_increment primary key,
+    from_emp bigint not null,
+    to_emp bigint not null,
+    sum bigint not null
+);
+
+create table emp_balances
+(
+    id bigint auto_increment primary key,
+    emp_id bigint not null,
+    sum bigint not null
+);
