@@ -1,7 +1,10 @@
 package ua.com.alevel.entity;
 
+import ua.com.alevel.annotations.PK;
+
 public abstract class BaseEntity {
 
+    @PK
     private Long id;
 
     public Long getId() {

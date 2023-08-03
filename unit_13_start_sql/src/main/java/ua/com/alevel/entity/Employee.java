@@ -1,10 +1,37 @@
 package ua.com.alevel.entity;
 
+import ua.com.alevel.annotations.Column;
+import ua.com.alevel.annotations.Entity;
+
+@Entity(name = "employees")
 public class Employee extends BaseEntity {
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "first_name")
     private String lastName;
+
     private Integer age;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public String getFirstName() {
         return firstName;
