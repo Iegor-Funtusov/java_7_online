@@ -8,6 +8,9 @@ insert into employees values (default, 'ww', 'www', 25);
 insert into employees values (default, 'ee', 'eee', 28);
 insert into employees values (default, 'rr', 'rrr', 38);
 
+insert into dep_emp value (1, 1);
+insert into dep_emp value (1, 2);
+
 -- update
 update employees set first_name = 'fsf', last_name = 'dfsafsa', age = 10 where id = 1;
 
