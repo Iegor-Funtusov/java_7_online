@@ -37,6 +37,38 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
+    public void update(Student student) {
+        Transaction transaction = null;
+        try(Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            session.update(student);
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println("e = " + e);
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
+    @Override
+    public Student findById(Long id) {
+        Transaction transaction = null;
+        try(Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            Student employee = session.find(Student.class, id);
+            transaction.commit();
+            return employee;
+        } catch (Exception e) {
+            System.out.println("e = " + e);
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Student> findAll() {
         Transaction transaction = null;
         try(Session session = sessionFactory.getCurrentSession()) {

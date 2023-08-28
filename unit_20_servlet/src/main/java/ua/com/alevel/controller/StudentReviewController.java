@@ -29,6 +29,7 @@ public class StudentReviewController extends HttpServlet {
             writer.write("<tr>");
             writer.write("<th>Id</th>");
             writer.write("<th>Name</th>");
+            writer.write("<th>Update</th>");
             writer.write("</tr>");
             for (Student student : studentDao.findAll()) {
                 writer.write("<tr>");
@@ -37,6 +38,9 @@ public class StudentReviewController extends HttpServlet {
                 writer.write("</td>");
                 writer.write("<td>");
                 writer.write(student.getName());
+                writer.write("</td>");
+                writer.write("<td>");
+                writer.write("<a href=\"/test_servlet/students-update?id=" + student.getId() + "\">Update</a>");
                 writer.write("</td>");
                 writer.write("</tr>");
             }

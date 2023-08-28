@@ -35,6 +35,10 @@
         <servlet-name>studentCreateController</servlet-name>
         <servlet-class>ua.com.alevel.controller.StudentCreateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>studentUpdateController</servlet-name>
+        <servlet-class>ua.com.alevel.controller.StudentUpdateController</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>studentReviewController</servlet-name>
@@ -43,5 +47,9 @@
     <servlet-mapping>
         <servlet-name>studentCreateController</servlet-name>
         <url-pattern>/students-new</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>studentUpdateController</servlet-name>
+        <url-pattern>/students-update</url-pattern>
     </servlet-mapping>
 </web-app>
