@@ -3,11 +3,13 @@ package ua.com.alevel.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.collections4.CollectionUtils;
 import ua.com.alevel.entity.Employee;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class EmployeeDto extends BaseDto {
 

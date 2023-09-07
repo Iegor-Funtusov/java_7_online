@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card">
+    <div class="card-header">
+      Attach/Unattach employee
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <table class="table table-sm table-striped table-hover m-1">
+              <thead>
+              <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Attach</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="employee : ${employeesByDepartment}">
+                <td th:text="${employee.getId()}"></td>
+                <td th:text="${employee.getFirstName()}"></td>
+                <td th:text="${employee.getLastName()}"></td>
+                <td th:text="${employee.getAge}"></td>
+                <td>
+                  <button type="button" class="btn btn-primary" th:onclick="|detachUser(${departmentId}, ${employee.getId()})|">
+                    <span class="material-symbols-rounded">line_end_arrow_notch</span>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-6">
+            <table class="table table-sm table-striped table-hover m-1">
+              <thead>
+              <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Age</th>
+                <th>Detach</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="employee : ${employeesByExcludeDepartment}">
+                <td th:text="${employee.getId()}"></td>
+                <td th:text="${employee.getFirstName()}"></td>
+                <td th:text="${employee.getLastName()}"></td>
+                <td th:text="${employee.getAge}"></td>
+                <td>
+                <td>
+                  <button type="button" class="btn btn-primary" th:onclick="|attachUser(${departmentId}, ${employee.getId()})|">
+                    <span class="material-symbols-rounded">line_start_arrow_notch</span>
+                  </button>
+                </td>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <form method="POST" th:action="@{/departments/employees/attach}" id="depAttach">
+            <input type="submit"
+                   id="depAttachSubmit"
+                   style="visibility: hidden"
+            />
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<th:block layout:fragment="scripts">
+  <script type="text/javascript" th:src="@{/js/common.js}"></script>
+</th:block>
+</body>
+</html>

@@ -8,6 +8,7 @@ import ua.com.alevel.facade.EmployeeFacade;
 import ua.com.alevel.service.EmployeeService;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class EmployeeFacadeImpl implements EmployeeFacade {
@@ -46,5 +47,15 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     @Override
     public Collection<EmployeeDto> findAll() {
         return employeeService.findAll().stream().map(EmployeeDto::new).toList();
+    }
+
+    @Override
+    public List<EmployeeDto> findAllEmployeesByDepartment(Long depId) {
+        return employeeService.findAllEmployeesByDepartment(depId).stream().map(EmployeeDto::new).toList();
+    }
+
+    @Override
+    public List<EmployeeDto> findAllEmployeesByExcludeDepartment(Long depId) {
+        return employeeService.findAllEmployeesByExcludeDepartment(depId).stream().map(EmployeeDto::new).toList();
     }
 }

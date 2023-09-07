@@ -1,32 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<a th:href="@{/employees}">All Employees</a>
+<div layout:fragment="content">
+    <div class="card">
+        <div class="card-header">
+            All Departments
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Employees</th>
+                    <th>Attach</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="department : ${departments}">
+                    <td th:text="${department.getId()}"></td>
+                    <td th:text="${department.getName()}"></td>
+                    <td th:text="${department.getCountOfEmployees()}"></td>
+                    <td>
+                        <a
+                                type="button"
+                                class="btn btn-primary"
+                                role="button"
+                                th:href="@{'/departments/' + ${department.getId()} + '/employees/attach'}">
+                            Run
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<h1>All Departments</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Employees</th>
-        <th>Details</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="department : ${departments}">
-        <td th:text="${department.getId()}"></td>
-        <td th:text="${department.getName()}"></td>
-        <td th:text="${department.getCountOfEmployees()}"></td>
-        <td >review</td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>

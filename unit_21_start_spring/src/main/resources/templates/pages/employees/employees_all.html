@@ -1,43 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-<a th:href="@{/departments}">All Departments</a>
+<div layout:fragment="content">
 
-
-<h1>All Employees</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Age</th>
-        <th>Departments</th>
-        <th>Details</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="employee : ${employees}">
-        <td th:text="${employee.getId()}"></td>
-        <td th:text="${employee.getFirstName()}"></td>
-        <td th:text="${employee.getLastName()}"></td>
-        <td th:text="${employee.getAge}"></td>
-        <td>
-            <a th:href="@{'/departments/employees/' + ${employee.getId()}}" th:text="${employee.getCountOfDepartments()}"></a>
-        </td>
-        <td >review</td>
-    </tr>
-    </tbody>
-</table>
-
-<br>
-<a th:href="@{/employees/new}">New employee</a>
+    <div class="card">
+        <div class="card-header">
+            All Employees
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Age</th>
+                    <th>Departments</th>
+                    <th>Update</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.getId()}"></td>
+                    <td th:text="${employee.getFirstName()}"></td>
+                    <td th:text="${employee.getLastName()}"></td>
+                    <td th:text="${employee.getAge}"></td>
+                    <td>
+                        <a
+                                type="button"
+                                class="btn btn-primary mt-2"
+                                role="button"
+                                th:href="@{'/departments/employees/' + ${employee.getId()}}"
+                                th:text="${employee.getCountOfDepartments()}"></a>
+                    </td>
+                    <td>
+                        <a
+                                type="button"
+                                class="btn btn-primary mt-2"
+                                role="button"
+                                th:href="@{'/employees/' + ${employee.getId()} + '/update'}">
+                            Update
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a type="button" class="btn btn-primary mt-2" role="button" th:href="@{/employees/new}">New employee</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import ua.com.alevel.repository.EmployeeRepository;
 import ua.com.alevel.service.EmployeeService;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -46,5 +47,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (!employeeRepository.existsById(id)) {
             throw new RuntimeException("Department not found");
         }
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesByDepartment(Long depId) {
+        return employeeRepository.findAllEmployeesByDepartment(depId);
+    }
+
+    @Override
+    public List<Employee> findAllEmployeesByExcludeDepartment(Long depId) {
+        return employeeRepository.findAllEmployeesByExcludeDepartment(depId);
     }
 }
