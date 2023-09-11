@@ -3,6 +3,7 @@ package ua.com.alevel.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.entity.Employee;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.repository.EmployeeRepository;
 import ua.com.alevel.service.EmployeeService;
 
@@ -45,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private void checkExists(Long id) {
         if (!employeeRepository.existsById(id)) {
-            throw new RuntimeException("Department not found");
+            throw new EntityNotFoundException("Employee not found");
         }
     }
 
