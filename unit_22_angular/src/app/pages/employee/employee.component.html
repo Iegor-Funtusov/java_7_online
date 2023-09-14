@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header">
+    All Employees
+  </div>
+  <div class="card-body">
+    <table class="table table-sm table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Age</th>
+        <th>Departments</th>
+        <th>Update</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of employees$ | async">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.firstName }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>{{ employee.age }}</td>
+        <td>
+          <a
+            type="button"
+            class="btn btn-primary mt-2"
+            role="button"
+            href="/departments/employees/ + {{ employee.id }}">{{ employee.countOfDepartments }}</a>
+        </td>
+        <td>
+          <a
+            type="button"
+            class="btn btn-primary mt-2"
+            role="button"
+            href="/employees/ + {{ employee.id }} + /update">
+            Update
+          </a>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <a type="button" class="btn btn-primary mt-2" role="button" href="/employees/new">New employee</a>
+  </div>
+</div>
