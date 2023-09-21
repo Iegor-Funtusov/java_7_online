@@ -27,7 +27,7 @@ public class Token extends BaseEntity {
     private Boolean expired;
     private Boolean revoked;
 
-    @ManyToOne
+    @OneToOne
     private User user;
 
     public Token() {
