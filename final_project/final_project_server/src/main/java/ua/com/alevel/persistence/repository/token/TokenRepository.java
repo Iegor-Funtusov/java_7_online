@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface TokenRepository extends BaseRepository<Token> {
 
     Optional<Token> findByUser(User user);
+    Optional<Token> findByToken(String token);
 }

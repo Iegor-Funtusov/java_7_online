@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ua.com.alevel.config.filter.AuthenticationFilter;
 import ua.com.alevel.persistence.type.RoleType;
 
 @Configuration
@@ -18,6 +20,7 @@ import ua.com.alevel.persistence.type.RoleType;
 public class AuthorizationSecurityConfig {
 
     private final AuthenticationProvider authenticationProvider;
+    private final AuthenticationFilter authenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -38,7 +41,9 @@ public class AuthorizationSecurityConfig {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(authenticationProvider);
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        ;
 
         return httpSecurity.build();
     }
