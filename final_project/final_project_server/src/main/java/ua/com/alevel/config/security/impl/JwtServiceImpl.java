@@ -19,33 +19,59 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-    @Value("${api.secret.key}")
-    private String apiSecretKey;
-
-    @Value("${api.secret.token.expiration}")
-    private long apiSecretTokenExpiration;
+    @Value("${application.security.jwt.secret-key}")
+    private String secretKey;
+    @Value("${application.security.jwt.expiration}")
+    private long jwtExpiration;
+    @Value("${application.security.jwt.refresh-token.expiration}")
+    private long refreshExpiration;
 
     @Override
-    public String generateToken(UserDetails userDetails) {
-        return buildToken(new HashMap<>(), userDetails, apiSecretTokenExpiration);
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
     }
 
     @Override
-    public <T> T extractClaims(String token, Function<Claims, T> claimsTFunction) {
-        Claims claims = extract(token);
-        return claimsTFunction.apply(claims);
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
     }
 
     @Override
     public boolean isTokenExpired(String token) {
-        Date expiration = this.extractClaims(token, Claims::getExpiration);
-        return expiration.before(new Date());
+        return extractExpiration(token).before(new Date());
     }
 
-    private String buildToken(Map<String, Object> claims, UserDetails userDetails, long expiration) {
+    @Override
+    public String generateRefreshToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+    }
+
+    @Override
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+
+    private String generateToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails
+    ) {
+        return buildToken(extraClaims, userDetails, jwtExpiration);
+    }
+
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private String buildToken(
+            Map<String, Object> extraClaims,
+            UserDetails userDetails,
+            long expiration
+    ) {
         return Jwts
                 .builder()
-                .setClaims(claims)
+                .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
@@ -53,17 +79,21 @@ public class JwtServiceImpl implements JwtService {
                 .compact();
     }
 
-    private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(apiSecretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims extract(String token) {
+    private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    private Key getSignInKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }

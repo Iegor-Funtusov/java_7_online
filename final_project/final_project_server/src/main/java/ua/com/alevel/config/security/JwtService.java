@@ -1,13 +1,12 @@
 package ua.com.alevel.config.security;
 
-import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.function.Function;
 
 public interface JwtService {
 
     String generateToken(UserDetails userDetails);
-    <T> T extractClaims(String token, Function<Claims, T> claimsTFunction);
+    String generateRefreshToken(UserDetails userDetails);
+    String extractUsername(String token);
     boolean isTokenExpired(String token);
+    boolean isTokenValid(String token, UserDetails userDetails);
 }

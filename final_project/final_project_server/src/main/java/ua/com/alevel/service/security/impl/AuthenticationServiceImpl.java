@@ -1,7 +1,6 @@
 package ua.com.alevel.service.security.impl;
 
-import io.jsonwebtoken.Claims;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,10 +17,7 @@ import ua.com.alevel.persistence.repository.user.PersonalRepository;
 import ua.com.alevel.persistence.type.TokenType;
 import ua.com.alevel.service.security.AuthenticationService;
 
-import java.util.Date;
-
 @Service
-@AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final PersonalRepository personalRepository;
@@ -29,6 +25,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
+    public AuthenticationServiceImpl(
+            PersonalRepository personalRepository,
+            TokenRepository tokenRepository,
+            PasswordEncoder passwordEncoder,
+            JwtService jwtService,
+            @Qualifier("authenticationManager")
+            AuthenticationManager authenticationManager) {
+        this.personalRepository = personalRepository;
+        this.tokenRepository = tokenRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
 
     @Override
     public AuthenticationData register(RegisterData data) {
