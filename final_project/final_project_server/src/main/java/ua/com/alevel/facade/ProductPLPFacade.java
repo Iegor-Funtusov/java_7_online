@@ -1,6 +1,6 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.api.data.response.ProductPLPData;
+import ua.com.alevel.api.data.response.product.ProductPLPData;
 
 import java.util.Collection;
 

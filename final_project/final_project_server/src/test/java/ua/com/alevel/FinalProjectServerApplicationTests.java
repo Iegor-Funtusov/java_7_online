@@ -1,4 +1,4 @@
-package ua.com.alevel.final_project_server;
+package ua.com.alevel;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,7 +7,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 class FinalProjectServerApplicationTests {
 
     @Test
-    void contextLoads() {
-    }
-
+    void contextLoads() { }
 }

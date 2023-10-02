@@ -2,7 +2,7 @@ package ua.com.alevel.facade.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ua.com.alevel.api.data.response.ProductPLPData;
+import ua.com.alevel.api.data.response.product.ProductPLPData;
 import ua.com.alevel.facade.ProductPLPFacade;
 import ua.com.alevel.service.product.ProductService;
 

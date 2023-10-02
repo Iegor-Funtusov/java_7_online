@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.com.alevel.api.data.response.ProductPLPData;
+import ua.com.alevel.api.data.response.product.ProductPLPData;
 import ua.com.alevel.api.data.response.ResponseData;
 import ua.com.alevel.facade.ProductPLPFacade;
 

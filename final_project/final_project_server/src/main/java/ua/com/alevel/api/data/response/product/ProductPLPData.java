@@ -1,4 +1,4 @@
-package ua.com.alevel.api.data.response;
+package ua.com.alevel.api.data.response.product;
 
 import lombok.Getter;
 import lombok.Setter;

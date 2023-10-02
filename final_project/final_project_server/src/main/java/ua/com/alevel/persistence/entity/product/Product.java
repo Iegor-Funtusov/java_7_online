@@ -18,7 +18,6 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-//    @Column(columnDefinition = "TEXT")
     @Column(length = 4096)
     private String description;
 

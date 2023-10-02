@@ -1,10 +1,6 @@
 package ua.com.alevel.service.product;
 
 import ua.com.alevel.persistence.entity.product.Product;
+import ua.com.alevel.service.CrudService;
 
-import java.util.Collection;
-
-public interface ProductService {
-
-    Collection<Product> findAll();
-}
+public interface ProductService extends CrudService<Product> { }

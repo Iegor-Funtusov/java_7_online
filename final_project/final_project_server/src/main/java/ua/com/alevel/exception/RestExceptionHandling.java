@@ -13,6 +13,11 @@ public class RestExceptionHandling {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
+    @ExceptionHandler(value = NotValidDataException.class)
+    public ResponseEntity<String> handleNotValidDataException(NotValidDataException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+
     @ExceptionHandler(value = UserExistsException.class)
     public ResponseEntity<String> handleUserExistsException(UserExistsException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
