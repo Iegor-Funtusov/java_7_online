@@ -1,0 +1,14 @@
+<ng-container *ngIf="products$ | async as products">
+  <div class="d-flex flex-wrap justify-content-center">
+    <div class="p-0" *ngFor="let product of products">
+      <div class="card m-1" style="width: 18rem;">
+        <img src="{{ product.image }}" class="card-img-top" alt="..." role="button" (click)="redirectToPdp(product.id)">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{ product.brand }}</p>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
