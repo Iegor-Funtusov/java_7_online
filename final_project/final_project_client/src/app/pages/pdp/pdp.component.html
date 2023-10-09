@@ -1,1 +1,220 @@
-<p>pdp works!</p>
+<ng-container *ngIf="{
+  product: product$ | async,
+  configurator: configurator$ | async,
+  enableBuyStatus: enableBuyStatus$ | async
+} as config">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <span class="fs-1">
+          {{ config?.product?.name }}
+        </span>
+      </div>
+      <div class="col-12 mt-4">
+        <span class="fs-3">
+          {{ config?.product?.productBrand }}
+        </span>
+      </div>
+      <div class="col-12 mt-4">
+        <span class="fs-5">
+          {{ config?.product?.description }}
+        </span>
+      </div>
+      <div class="col-12 mt-4">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let image of config?.product?.images">
+            <img src="{{ image }}" class="card-img-top" alt="...">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4">
+        <div class="d-flex flex-row">
+          <div class="p-1">
+            <span class="fs-5">Depth&nbsp;&nbsp;</span>
+            <span>{{ config?.product?.depth }}</span>
+          </div>
+          <div class="p-1">
+            <span class="fs-5">Height&nbsp;&nbsp;</span>
+            <span>{{ config?.product?.height }}</span>
+          </div>
+          <div class="p-1">
+            <span class="fs-5">Width&nbsp;&nbsp;</span>
+            <span>{{ config?.product?.width }}</span>
+          </div>
+          <div class="p-1">
+            <span class="fs-5">Weight&nbsp;&nbsp;</span>
+            <span>{{ config?.product?.weight }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.osList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.os === item"
+              [class.btn-light]="config?.configurator?.os !== item"
+              (click)="setOs(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.cpuList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.cpu === item"
+              [class.btn-light]="config?.configurator?.cpu !== item"
+              (click)="setCpu(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.ramList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.ram === item"
+              [class.btn-light]="config?.configurator?.ram !== item"
+              (click)="setRam(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.ssdList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.ssd === item"
+              [class.btn-light]="config?.configurator?.ssd !== item"
+              (click)="setSsd(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.colorList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.color === item"
+              [class.btn-light]="config?.configurator?.color !== item"
+              (click)="setColor(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.cameraList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.camera === item"
+              [class.btn-light]="config?.configurator?.camera !== item"
+              (click)="setCamera(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.displayResolutionList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.displayResolution === item"
+              [class.btn-light]="config?.configurator?.displayResolution !== item"
+              (click)="setDisplayResolution(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.displaySizeList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.displaySize === item"
+              [class.btn-light]="config?.configurator?.displaySize !== item"
+              (click)="setDisplaySize(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-1">
+        <div class="d-flex flex-row">
+          <div class="p-1" *ngFor="let item of config?.product?.displayTypeList">
+            <button
+              class="btn"
+              [class.btn-secondary]="config?.configurator?.displayType === item"
+              [class.btn-light]="config?.configurator?.displayType !== item"
+              (click)="setDisplayType(item)"
+            >{{ item }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mt-4 mb-4">
+        <div class="card">
+          <div class="card-header">
+            Product configurator
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <tr>
+                <td>Os</td>
+                <td>{{ config?.configurator?.os }}</td>
+              </tr>
+              <tr>
+                <td>CPU</td>
+                <td>{{ config?.configurator?.cpu }}</td>
+              </tr>
+              <tr>
+                <td>RAM</td>
+                <td>{{ config?.configurator?.ram }}</td>
+              </tr>
+              <tr>
+                <td>SSD</td>
+                <td>{{ config?.configurator?.ssd }}</td>
+              </tr>
+              <tr>
+                <td>Color</td>
+                <td>{{ config?.configurator?.color }}</td>
+              </tr>
+              <tr>
+                <td>Camera</td>
+                <td>{{ config?.configurator?.camera }}</td>
+              </tr>
+              <tr>
+                <td>Display resolution</td>
+                <td>{{ config?.configurator?.displayResolution }}</td>
+              </tr>
+              <tr>
+                <td>Display size</td>
+                <td>{{ config?.configurator?.displaySize }}</td>
+              </tr>
+              <tr>
+                <td>Display type</td>
+                <td>{{ config?.configurator?.displayType }}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-end">
+              <button
+                *ngIf="!config?.enableBuyStatus"
+                type="button"
+                disabled
+                class="btn btn-primary">Buy now</button>
+              <button
+                *ngIf="config?.enableBuyStatus"
+                type="button"
+                class="btn btn-primary">Buy now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

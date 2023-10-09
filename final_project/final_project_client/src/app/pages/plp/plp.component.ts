@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PlpService } from "../../services/plp.service";
-import {Observable} from "rxjs";
-import {PlpData} from "../../models/response/product/plp.data";
-import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
+import { AsyncPipe, JsonPipe, NgForOf, NgIf } from "@angular/common";
+import { Observable } from "rxjs";
+
+import { ProductPlpService } from "../../services";
+import { ProductPlpData } from "../../models/response";
 
 @Component({
   selector: 'app-plp',
@@ -19,9 +20,9 @@ import {Router} from "@angular/router";
 })
 export class PlpComponent implements OnInit {
 
-  products$: Observable<PlpData[]> =  this.service.loadProducts();
+  products$: Observable<ProductPlpData[]> =  this.productPlpService.loadProducts();
 
-  constructor(private service: PlpService, private router: Router) { }
+  constructor(private productPlpService: ProductPlpService, private router: Router) { }
 
   ngOnInit(): void { }
 

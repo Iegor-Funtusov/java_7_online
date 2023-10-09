@@ -1,4 +1,4 @@
-export interface PlpData {
+export interface ProductPlpData {
   id: number;
   brand: string;
   image: string;
