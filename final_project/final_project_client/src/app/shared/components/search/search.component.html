@@ -1,0 +1,18 @@
+<form class="d-flex" role="search" [formGroup]="searchForm">
+  <div class="d-flex dropdown">
+    <input
+      class="form-control me-2 dropdown-toggle"
+      type="search"
+      placeholder="Search"
+      aria-label="Search"
+      data-bs-toggle="dropdown"
+      formControlName="query">
+    <ng-container *ngIf="productSearchStore$ | async as products">
+      <ul class="dropdown-menu">
+        <li *ngFor="let product of products" class="p-2" (click)="navigateToVariant(product.pvId, product.pid)">
+          {{ product.productInfo }}
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+</form>

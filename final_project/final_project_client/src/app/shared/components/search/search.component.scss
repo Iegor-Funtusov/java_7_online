@@ -1,0 +1,10 @@
+.dropdown {
+  width: 100%;
+  .dropdown-menu {
+    width: 100%;
+    background: lightgrey;
+    li {
+      cursor: pointer;
+    }
+  }
+}
