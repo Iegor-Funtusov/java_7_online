@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.api.data.request.RegisterData;
 import ua.com.alevel.api.data.response.AuthenticationData;
+import ua.com.alevel.config.processor.annotations.InjectLog;
 import ua.com.alevel.config.security.JwtService;
 import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.exception.UserExistsException;
@@ -15,6 +16,8 @@ import ua.com.alevel.persistence.entity.user.Personal;
 import ua.com.alevel.persistence.repository.token.TokenRepository;
 import ua.com.alevel.persistence.repository.user.PersonalRepository;
 import ua.com.alevel.persistence.type.TokenType;
+import ua.com.alevel.service.logger.LoggerService;
+import ua.com.alevel.service.logger.LoggingLevel;
 import ua.com.alevel.service.security.AuthenticationService;
 
 @Service
@@ -25,6 +28,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
+    @InjectLog
+    private LoggerService loggerService;
 
     public AuthenticationServiceImpl(
             PersonalRepository personalRepository,
@@ -56,6 +62,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationData login(RegisterData data) {
+        loggerService.log(LoggingLevel.INFO, "User try login: " + data.getUsername());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword())
         );
