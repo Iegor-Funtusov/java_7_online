@@ -15,5 +15,20 @@ export const APP_ROUTES: Routes = [
     path: 'pdp',
     pathMatch: 'prefix',
     loadChildren:() => import('./pages/pdp/pdp.routes').then(r => r.PDP_ROUTES)
+  },
+  {
+    path: 'cart',
+    pathMatch: 'prefix',
+    loadChildren:() => import('./pages/cart/cart.routes').then(r => r.CART_ROUTES)
+  },
+  {
+    path: 'login',
+    pathMatch: 'prefix',
+    loadChildren:() => import('./pages/login/login.routes').then(r => r.LOGIN_ROUTES)
+  },
+  {
+    path: 'register',
+    pathMatch: 'prefix',
+    loadChildren:() => import('./pages/registration/registration.routes').then(r => r.REGISTRATION_ROUTES)
   }
 ];
