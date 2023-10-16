@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center" *ngIf="{
+isValidForm: isValidForm$ | async
+} as config">
+  <div class="p-1 w-75">
+    <form [formGroup]="loginForm">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="username">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="login()" disabled *ngIf="!config.isValidForm">Submit</button>
+      <button type="submit" class="btn btn-primary" (click)="login()" *ngIf="config.isValidForm">Submit</button>
+    </form>
+    <div class="mt-3">
+      <a href="/register">Do you want create an account?</a>
+    </div>
+  </div>
+</div>
